@@ -1,0 +1,23 @@
+---
+title: "MLaRPiS Presentation"
+author:
+  name: Pepijn Vink
+  orcid: 0000-0001-6960-9904
+  email: p.a.vink@uu.nl
+  affiliations:
+    - name: Methodology & Statistics @ UU
+date: last-modified
+date-format: "D MMM YYYY"
+editor: source
+format: 
+  revealjs:
+    progress: true
+    transition: fade
+---
+
+## Favorite Equation
+
+This is Bayes Rule
+$$
+P( \theta|D ) = \frac{P(D|\theta) P(\theta)}{P(D)} = \frac{P(D|\theta) P(\theta)}{\int P(D | \theta) P(\theta) d\theta} 
+$$
