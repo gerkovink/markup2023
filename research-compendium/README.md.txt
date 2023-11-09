@@ -1,0 +1,1 @@
+This is a research compendium, with a completely reproducible workflow to reproduce the simulation results of the paper discussed in class.
