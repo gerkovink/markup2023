@@ -60,3 +60,11 @@ ggplot(penguins,
 ```
 
 The number of Gentoo and Chinstrap penguins is `r sum(penguins$species == "Gentoo" | penguins$species == "Chinstrap")`.
+
+```{r}
+#| file: "scripts/do_addition.R"
+#| eval: true 
+#| echo: false
+```
+
+Testing the adding function with 22 and 5 gives `r do_addition(22,5)`.
