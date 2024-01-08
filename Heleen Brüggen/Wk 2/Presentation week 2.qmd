@@ -22,6 +22,7 @@ bibliography: references.bib
 
 ```{r, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
 #| cache: true
+#| label: setup
 library(DT)
 library(magrittr)
 library(ggplot2)
@@ -51,6 +52,7 @@ codebook <- read.csv('owid-co2-codebook.csv')
 
 ```{r}
 #| echo: false
+#| label: emission-data table
 DT::datatable(df[,c('country', 'year', 'population', 'co2', 'cumulative_co2')], caption = 'Table 1. C02 emissions in million tons for every country and year with respective population size', colnames = c('Country', 'Year', 'Population', 'C02', 'Cumulative C02'), filter = 'top', options = list(pageLength = 10, dom = 't'))
 ```
 
@@ -68,6 +70,7 @@ $$
 ## Proposed linear model
 ```{r, echo=TRUE, eval=FALSE}
 #| code-line-numbers: true
+#| label: linear-model
 df <- read.csv('owid-co2-data.csv')
 lm <- lm(co2 ~ population + methane + nitrous_oxide + primary_energy_consumption, data = df)
 
@@ -78,6 +81,7 @@ summary(lm)
 ```{r}
 #| cache: true # cache the results
 #| echo: false # don't show the code
+#| label: plot of annual c02 emissions by region
 df2 <- read.csv('annual-co-emissions-by-region.csv') # Reading data set with annual c02 emissions per country and regions
 df2 %>% 
   filter(Entity == 'International aviation' | Entity == 'International shipping' | Entity == 'Oceania' | Entity == 'Asia (excl. China and India)' | Entity == 'China' | Entity == 'India' | Entity == 'Africa' | Entity == 'South America' | Entity == 'North America' | Entity == 'United States' | Entity == 'European Union (27)' | Entity == 'European Union (excl. EU-27)') %>% # Filtering data set to only include the regions of interest
