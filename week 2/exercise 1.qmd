@@ -1,0 +1,17 @@
+---
+title: "Presentation MLARP"
+author: 
+  - name: Hidde van de Beek
+    orcid: 0000-0001-8111-4138
+    email: h.vandebeek@uu.nl
+format: revealjs
+editor: visual
+---
+
+## My favorite equation
+
+The PDF of the normal distribution is given by the formula: $f(x | \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{ -\frac{(x - \mu)^2}{2\sigma^2} }$
+
+## What most classmates don't know
+
+Two summers ago I went to the Shetland Islands in Scotland. On the boat back there were hundreds of puffins following the Ferry. However, I was inside for most of the time because I was so hungry from hiking there. I ate three full diners.
