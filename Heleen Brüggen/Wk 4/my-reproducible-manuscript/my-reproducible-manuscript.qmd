@@ -44,6 +44,7 @@ The plot below shows the relationship between flipper and bill lengths of these 
 #| echo: false
 #| fig.cap: "Flipper and Bill length"
 #| fig.align: "center"
+#| warning: false
 #| label: flipper-and-bill-plot
 ggplot(penguins, 
        aes(x = `flipper_length_mm`, y = `bill_length_mm`)) +
