@@ -1,0 +1,30 @@
+---
+title: "My Reproducible Manuscript"
+author: Heleen Brüggen
+format: html
+engine: knitr
+bibliography: references.bib
+---
+
+# Meet Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. 
+To learn more about Quarto see <https://quarto.org>.
+
+# Meet the penguins
+```{r}
+#| echo: false
+penguins <- palmerpenguins::penguins
+```
+
+::: columns
+::: {.column width="50%"}
+The `penguins` data from the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) package contains size measurements for 'r nrow(penguins)` 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.
+
+The plot below shows the relationship between flipper and bill lengths of these penguins.
+:::
+
+::: {.column width="50%"}
+![](https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png){fig-align="left"}
+:::
+::: 
