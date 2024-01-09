@@ -1,0 +1,27 @@
+---
+title: "My Reproducible Script"
+author: Heleen Brüggen
+format: html
+bibliography: references.bib
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: setup
+# Libraries
+library(Hmisc)
+library(mice)
+library(tidyverse)
+
+# Loading the data
+d1 <- sasxport.get("Data/DEMO_I.XPT")
+d2 <- sasxport.get("Data/BPX_I.XPT")
+d3 <- sasxport.get("Data/BMX_I.XPT")
+d4 <- sasxport.get("Data/GHB_I.XPT")
+d5 <- sasxport.get("Data/TCHOL_I.XPT")
+```
+
+# Introduction 
+The data used for this article is the 2015–2016 National Health and Nutrition Examination Survey (NHANES) and can be downloaded from [NHANES](https://wwwn.cdc.gov/nchs/nhanes/)
