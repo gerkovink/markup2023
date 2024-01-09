@@ -1,0 +1,89 @@
+---
+title: "Exercise 2"
+author: 
+  - name: Hidde van de Beek
+    orcid: 0000-0001-8111-4138
+    email: h.vandebeek@uu.nl
+format: revealjs
+editor: visual
+logo: "wakuli.png"
+bibliography: references.bib
+nocite: |
+  @QuartoCitationsFootnotes
+---
+
+
+## Let's talk coffee
+{{< video https://www.youtube.com/watch?v=-US-wCePuRA&ab_channel=JamesHoffmann width="1000" height="500">}}
+
+## Price
+```{r}
+library(DT)
+
+# Creating a data frame with your data
+coffee_data <- data.frame(
+  Coffee = c("Espresso", "Cappuccino", "Flat White"),
+  Price = c(1.37, 2.05, 2.73)
+)
+
+# Creating an interactive table
+datatable(coffee_data, options = list(pageLength = 5))
+```
+
+## Just some silly pictures
+:::: {.columns}
+
+::: {.column width="50%"}
+![Fig 1: not centered in column](coffee.jpg){fig-align="left" width=40%}
+
+:::
+
+
+::: {.column width="50%"}
+![Fig 2: centered in column](coffee.jpg)
+:::
+
+::::
+
+
+
+
+
+## Price breakdown Cappuccino
+
+Contrasting ideas about what is happening to public space in North America can be observed. Zukin cites the example of a revitalisation and design-led strategy in Bryant Park, New York City, as ‘domestication by cappuccino’ [@atkinsonDomesticationCappuccinoRevenge2003]. However, this is totally irrelevant. Let's look at a price breakdown of a cappuccino:
+
+$$
+\begin{split}
+Coffee_{price} &= 0.68 + 1.37(Espresso_{shots}) \\
+Coffee_{price} &= 0.68 + 1.37(1) \\
+&= 2.05
+\end{split}
+$$
+
+
+## R-code
+
+``` r
+# Create example code for some coffee calculations
+coffee <- c("Espresso", "Cappuccino", "Flat White")
+price <- c(1.37, 2.05, 2.73)
+df <- data.frame(coffee, price)
+df
+```
+
+```{r, cache = T}
+# Create example code for some coffee calculations
+coffee <- c("Espresso", "Cappuccino", "Flat White")
+price <- c(1.37, 2.05, 2.73)
+df <- data.frame(coffee, price)
+
+# now plot the data using ggplot2
+library(ggplot2)
+ggplot(df, aes(x = coffee, y = price)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(x = "Coffee", y = "Price") +
+  theme_bw()
+```
+
+## References
