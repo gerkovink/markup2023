@@ -1,6 +1,6 @@
 ---
 title: "My Reproducible Manuscript"
-author: Heleen Brüggen
+author: "Heleen Brüggen"
 format: html
 bibliography: references.bib
 ---
