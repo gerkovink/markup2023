@@ -1,11 +1,13 @@
 ---
 title: "simulation"
+execute:
+  echo: false
 format: pdf
 ---
 
 ## Intro
 
-This doc reproduces the simulation results of the article provided by Hanneh and Gerko.
+This doc reproduces the simulation results of the article provided by Hanneh and Gerko. This doc is fully reproducible because it is created based on the also attached. qmd file.
 
 ## Full reproducible script
 
@@ -72,7 +74,7 @@ var.conf <- var(dc$bmi)
 n <- dim(dc)[1]
 beta.hat <- matrix(ncol=dim(scenarios)[1], nrow=n.sim)
 for (k in 1:n.sim){
-  print(k)
+  #print(k)
   set.seed(k)
   for (i in 1:dim(scenarios)[1]){
     var.me.exp <- var.exp*scenarios[i,1]/(1-scenarios[i,1])
