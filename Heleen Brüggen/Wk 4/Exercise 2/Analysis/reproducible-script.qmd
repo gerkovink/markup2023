@@ -23,7 +23,8 @@ library(mice)
 library(tidyverse)
 
 # Setting the working directory
-setwd('/Users/Heleen/Desktop/Universiteit Utrecht/Methodology & Statistics for the Behavioural, Biomedical and Social Sciences/Year 2/Semester 1/Markup Languages and Reproducible Programming/markup2023/Heleen Brüggen/Wk 4/Exercise 2')
+# setwd('')
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 
 # Loading the data
 d1 <- Hmisc::sasxport.get("Data/DEMO_I.XPT")
