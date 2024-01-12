@@ -139,7 +139,6 @@ colnames(tab_dat) <- c("Scenario", "Model", "Relative Bias (%)", "MSE", "Coverag
 datatable(tab_dat, rownames = F)
 ```
 
-
 ## Traineeship
 
 :::: {.columns}
