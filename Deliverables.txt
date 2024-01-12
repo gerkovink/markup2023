@@ -1,0 +1,7 @@
+Deliverables for the course Markup Languages and Reproducible Research by Heleen Brüggen.
+
+The following link will send you to my website containing all the deliverables for this course:
+https://heleenbrueggen.github.io/
+
+This website includes links and download links for my LateX markup manuscript, a reproducible research repository on Github, and the website itself.
+These is also a link to the repository of the R-package I created for this course.
