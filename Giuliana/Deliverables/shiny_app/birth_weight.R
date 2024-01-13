@@ -17,10 +17,7 @@ library(ggformula)
 library(tidyverse)
 library(RColorBrewer)
 library(shinydashboard)
-library(tmap)
 library(rjson)
-library(sf)
-library(readxl)
 library(rstudioapi)  
 script_path <-getSourceEditorContext()$path 
 
