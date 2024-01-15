@@ -1,0 +1,112 @@
+---
+title: "Understanding the Relationship Between Global Carbon Emissions and Rising Temperatures"
+author: 
+  name: Heleen Brüggen
+  orcid: 0009-0008-5180-3125
+  email: h.bruggen@students.uu.nl
+  date: 05 Jan 2024
+date-format: 'DD-MM-YYYY'
+format: 
+  revealjs:
+    logo: UU_logo_2021_EN_RGB.png
+    progress: true
+    slide-number: true
+    theme: simple
+    transition: slide
+    transition-speed: fast
+    scrollable: true
+    embed-resources: true
+editor: visual
+bibliography: references.bib
+---
+
+```{r, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+#| cache: true
+#| label: setup
+library(DT)
+library(magrittr)
+library(ggplot2)
+library(plotly)
+library(knitr)
+df <- read.csv('owid-co2-data.csv')
+codebook <- read.csv('owid-co2-codebook.csv')
+```
+
+## Global Temperatures
+
+::: columns
+::: {.column width="50%"}
+<center>
+
+![Figure 1. Average annual global temperatures [@owid-co2-and-greenhouse-gas-emissions]](temperature-anomaly.svg){style="object-fit: contain;" width="100%" fig-align="center"}
+
+</center>
+:::
+
+::: {.column width="50%"}
+{{< video https://www.youtube.com/watch?v=LwRTw_7NNJs width="100%" height='500' >}}
+:::
+:::
+
+## Emission data {.smaller}
+
+```{r}
+#| echo: false
+#| label: emission-data-table
+DT::datatable(df[,c('country', 'year', 'population', 'co2', 'cumulative_co2')], caption = 'Table 1. C02 emissions in million tons for every country and year with respective population size', colnames = c('Country', 'Year', 'Population', 'C02', 'Cumulative C02'), filter = 'top', options = list(pageLength = 10, dom = 't'))
+```
+
+## Energy balance model 
+
+$ASR = ETR, \tag{1.0}$ <br> 
+$ASR = (1-\alpha)S, \tag{1.1}$ <br> 
+$ETR = \sigma T^4, \tag{1.2}$ <br>
+
+where $ASR$ is the absorbed solar radiation, $ETR$ is the emitted thermal radiation, $\alpha$ is the earth's average planetary albedo or reflectivity, $S$ is the solar constant, $\sigma$ is the Stefan-Boltzmann constant and $T$ is the temperature of the Earth [@lohmann2020]. Thus this equation becomes:
+$$
+(1-\alpha)S = \sigma T^4 \tag{2}
+$$
+
+## Proposed linear model
+```{r, echo=TRUE, eval=FALSE}
+#| code-line-numbers: true
+#| label: linear-model
+df <- read.csv('owid-co2-data.csv')
+lm <- lm(co2 ~ population + methane + nitrous_oxide + primary_energy_consumption, data = df)
+
+summary(lm)
+```
+
+## Annual C02 emissions by region
+```{r}
+#| cache: true # cache the results
+#| echo: false # don't show the code
+#| label: co2plot
+df2 <- read.csv('annual-co-emissions-by-region.csv') # Reading data set with annual c02 emissions per country and regions
+df2 %>% 
+  filter(Entity == 'International aviation' | Entity == 'International shipping' | Entity == 'Oceania' | Entity == 'Asia (excl. China and India)' | Entity == 'China' | Entity == 'India' | Entity == 'Africa' | Entity == 'South America' | Entity == 'North America' | Entity == 'United States' | Entity == 'European Union (27)' | Entity == 'European Union (excl. EU-27)') %>% # Filtering data set to only include the regions of interest
+  ggplot(., aes(
+    y = Annual.CO..emissions, # Annual c02 emmissions
+    x = Year, # year
+    group = Entity, # Grouping by region
+    color = Entity, # Color by region
+    fill = Entity, # Fill by region
+  )) + 
+  geom_line(stat = 'identity', size = 1) + # Line plot
+  geom_ribbon( # Ribbon plot
+    aes(ymin = 0, ymax = Annual.CO..emissions), 
+    alpha = 0.1, # Transparency
+    show.legend = FALSE # Printing no legend for this geom
+  ) +
+  scale_colour_brewer(palette = 'Paired') + # Color palette
+  scale_fill_brewer(palette = 'Paired') + # Fill palette
+  theme_minimal() + # Minimal theme
+  labs(
+    title = 'Figure 2. Annual C02 emissions by region', # Title
+    x = 'Year', # X-axis label
+    y = 'Annual C02 emissions (million tons)') # Y-axis label
+```
+
+## Bibliography
+::: {#refs}
+:::
