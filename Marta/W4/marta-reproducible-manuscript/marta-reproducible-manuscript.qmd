@@ -1,0 +1,62 @@
+---
+title: "Marta reproducible manuscript"
+bibliography: references.bib
+format:
+  pdf: default
+
+---
+
+```{r}
+library(quarto)
+
+```
+
+```{r}
+# Load penguins
+library(palmerpenguins)
+library(ggplot2)
+```
+
+
+## Meet Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Meet the penguins
+::: columns
+::: {.column width="50%"}
+The penguins data from [palmerpenguins](https://cran.r-project.org/web/packages/palmerpenguins/readme/README.html) (@horst) package contains size measurements for `r nrow(penguins)` penguins from three species observed on three islands in the Palmer Archipelago, Antarctica. In particular `r sum(penguins$species=='Adelie')` belonging to the Adelie species, `r sum(penguins$species=='Chinstrap')`belonging to the Chinstrap species and `r sum(penguins$species=='Gentoo')`belonging to the Gentoo species.
+
+The plot below shows the relationship between flipper and bill lenghts of these penguins
+:::
+
+::: {.column width="50%"} 
+![](https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png){fig-align="right"}
+:::
+:::
+## Results
+```{r}
+ggplot(penguins, 
+       aes(x = flipper_length_mm, y = bill_length_mm)) +
+        geom_point(aes(color = species, shape = species)) +
+        scale_color_manual(values = c("darkorange","purple","cyan4")) +
+        labs(
+                title = "Flipper and bill length",
+                subtitle = "Dimensions for penguins at Palmer Station LTER",
+                x = "Flipper length (mm)", y = "Bill length (mm)",
+                color = "Penguin species", shape = "Penguin species"
+        ) +
+        theme_minimal()
+```
+
+```{r}
+#| label: Include the do_addition.R function in the current file
+#| file: "workshop-materials/scripts/do_addition.R"
+```
+
+```{r}
+#| label: perform an addition to check whether the sourcing worked
+a <- 4
+b <- 3
+do_addition(a, b)
+```

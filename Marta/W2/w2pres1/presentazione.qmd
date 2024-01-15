@@ -1,0 +1,38 @@
+---
+title: "Welcome to my short but intense presentation!"
+author: "orcid id: 0009-0005-5630-0138"
+format: 
+ revealjs:
+    theme: [solarized]
+    progress: true
+    multiplex: true
+    transition: fade
+    slide-number: true
+    margin: 0.075
+    logo: "juve.png" 
+    toc: false
+    toc-depth: 1
+    toc-title: Outline
+    scrollable: true
+    reference-location: margin
+    footer: Marta Sech 
+editor: visual
+---
+
+## My current favorite equation is: {background="#C0C0C0"}
+
+### the likelihood contribution for a single rank of $m_{kt}$ competitors
+
+$$
+L_{kt}=p(Y_{1kt}>Y_{2kt}>…>Y_{m_{kt}kt}|\theta_{t})=\prod_{i=1}^{m_{kt}-1}\frac{exp(\theta_{it})}{\sum_{l=1}^{m_{kt}}exp(\theta_{lt}),}
+$$
+
+where $Y_{1kt},Y_{2kt},…,Y_{m_{kt}kt}$ represent the latent performances of $m_{kt}$ competitors in game $k$ in time period $t$ and $\theta_{t}$ represent the vector of competitors abilities $m_{kt}$ competitors in game $k$ in time period $t$.
+
+## A fact about me:
+
+### I am a procrastinator
+
+![](procrastinator.png){fig-align="center"}
+
+[Watch this video if you want to know more about this condition](https://www.youtube.com/watch?v=arj7oStGLkU "Inside the mind of a master procrastinator")
