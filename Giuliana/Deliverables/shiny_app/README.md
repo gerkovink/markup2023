@@ -1,3 +1,5 @@
+URL ShinyApps.io: https://gorizzonte.shinyapps.io/birth_weight/
+
 This Shiny application is a platform to explore and visualize data on risk factors associated with low birth weight. Developed using R and integrating libraries like ggplot2, shinydashboard, and tidyverse, the app provides a dashboard to analyze birth weight data from a study by Venables and Ripley (2002).
 
 The app’s dashboard interface allows for the selection of two variables, one categorical and one continuous, which include mother's age, weight, race, smoking status, and medical conditions like hypertension. It then generates three plots: a boxplot, a violin plot, and a scatter plot, each offering insights into different aspects of the data and selected variables.
