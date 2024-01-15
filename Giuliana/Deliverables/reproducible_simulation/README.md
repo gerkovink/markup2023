@@ -1,4 +1,4 @@
-# my-reproducible manuscript
+# Simulation study replication
 
 Project Summary:
 
