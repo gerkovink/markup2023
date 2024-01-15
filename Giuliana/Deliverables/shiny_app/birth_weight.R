@@ -13,11 +13,12 @@
 # Modern Applied Statistics with S. Fourth edition. Springer.
 
 library(shiny)
+library(shinythemes)
 library(ggformula)
 library(tidyverse)
 library(RColorBrewer)
 library(shinydashboard)
-library(rjson)
+# library(rjson)
 library(rstudioapi)  
 script_path <-getSourceEditorContext()$path 
 
@@ -59,25 +60,65 @@ df <- birthwt %>%
   )
 
 # Define UI elements
-ui <- dashboardPage(
-  dashboardHeader(title = "Risk Factors of Low Birth Weight"),
-  dashboardSidebar(
-    sidebarMenu(id = "tabs",style = "position:fixed;width:220px;",
-                menuItem("Options", tabName = "Select Risk Factors", icon = icon("bar-chart")),
-                selectInput("selected_categorical", "Select a Categorical Variable", 
-                            choices = c("mother_race", "smoking_status", "hypertension", "uterine_irritability")),
-                selectInput("selected_continuous", "Select a Continuous Variable",       
-                            choices = c("mother_age", "mother_weight", "prev_premature_labours", "nr_physician_visits"))
-    )
-  ),
-  dashboardBody(
-    fluidRow(
-      box(plotOutput("boxplot"), width="100%", height=550),
-      box(plotOutput("violin"), width = "100%", height = 550),
-      box(plotOutput("scatter"), width = "100%", height = 550)
-    )
-  )
+# ui <- dashboardPage(
+#   dashboardHeader(title = "Risk Factors of Low Birth Weight"),
+#   dashboardSidebar(
+#     sidebarMenu(id = "tabs",style = "position:fixed;width:220px;",
+#                 menuItem("Options", tabName = "Select Risk Factors", icon = icon("bar-chart")),
+#                 selectInput("selected_categorical", "Select a Categorical Variable", 
+#                             choices = c("mother_race", "smoking_status", "hypertension", "uterine_irritability")),
+#                 selectInput("selected_continuous", "Select a Continuous Variable",       
+#                             choices = c("mother_age", "mother_weight", "prev_premature_labours", "nr_physician_visits"))
+#     )
+#   ),
+#   dashboardBody(
+#     fluidRow(
+#       box(
+#         HTML("<p>This Shiny application is a platform to explore and visualize data on risk factors associated with low birth weight.
+#              Developed using R and integrating libraries like ggplot2, shinydashboard, and tidyverse, the app provides a dashboard 
+#              to analyze birth weight data from a study by Venables and Ripley (2002)</p>"),
+#         width = 12
+#       ),
+#       box(plotOutput("boxplot"), width="100%", height=550),
+#       box(plotOutput("violin"), width = "100%", height = 550),
+#       box(plotOutput("scatter"), width = "100%", height = 550),
+#       box(
+#         HTML("<p>Venables, W. N. and Ripley, B. D. (2002). Modern Applied Statistics with S. Fourth edition. Springer.</p>"),
+#         width = 12
+#       )
+#     )
+#   )
+# )
+
+ui_2 <- fluidPage(theme = shinytheme("flatly"),
+                  titlePanel("Risk Factors of Low Birth Weight"),
+                  sidebarLayout(
+                    sidebarPanel(
+                      # Place your input elements here
+                      selectInput("selected_categorical", "Select a Categorical Variable", 
+                                  choices = c("mother_race", "smoking_status", "hypertension", "uterine_irritability")),
+                      selectInput("selected_continuous", "Select a Continuous Variable",       
+                                  choices = c("mother_age", "mother_weight", "prev_premature_labours", "nr_physician_visits"))
+                      # Add other input elements as needed
+                    ),
+                    mainPanel(
+                      box(
+                        HTML("<p> \n This Shiny application is a platform to explore and visualize data on risk factors associated with low birth weight.
+                        Developed using R and integrating libraries like ggplot2, shinydashboard, and tidyverse, the app provides a dashboard 
+                        to analyze birth weight data from a study by Venables and Ripley (2002) \n </p>"),
+                        width="100%", height=150
+                      ),
+                      box(plotOutput("boxplot"), width="100%", height=500),
+                      box(plotOutput("violin"), width = "100%", height = 500),
+                      box(plotOutput("scatter"), width = "100%", height = 500),
+                      box(
+                        HTML("<p>Venables, W. N. and Ripley, B. D. (2002). Modern Applied Statistics with S. Fourth edition. Springer.</p>"),
+                        width="100%", height=100
+                      )
+                    )
+                  )
 )
+
 
 # Define Server logic
 server <- function(input, output) {
@@ -91,7 +132,7 @@ server <- function(input, output) {
       scale_color_brewer(palette="Accent") +
       scale_fill_brewer(palette="Accent") +
       labs(x = selected_con, y = "Birth Weight, Dichotomous", 
-           title = paste("Relationship between", selected_con, "and Low Birth Weight")) +
+           title = paste("Relation between", selected_con, "and Low Birth Weight")) +
       theme_classic() +
       theme(legend.position="none")
   })
@@ -103,6 +144,8 @@ server <- function(input, output) {
       geom_violin() +
       geom_jitter(alpha = 0.5) +
       geom_hline(aes(yintercept = 0.5), linetype="dashed") +
+      labs(x = selected_cat, y = "Birth Weight in grams", 
+           title = paste("Relation between", selected_cat, "and Low Birth Weight")) +
       theme_classic() +
       scale_color_brewer(palette="Accent")
   })
@@ -114,6 +157,9 @@ server <- function(input, output) {
     ggplot(df, aes(x = !!sym(selected_con), y = bwt, color = !!sym(selected_cat))) +
       geom_point() +
       geom_smooth(aes(group = !!sym(selected_cat)), method = "lm", se = FALSE) +
+      labs(x = selected_con, y = "Birth Weight in grams", 
+           title = paste("Relation between", selected_con, 
+                         "and Low Birth Weight divided by", selected_cat)) +
       theme_classic() +
       scale_color_brewer(palette="Accent")
     
@@ -122,4 +168,4 @@ server <- function(input, output) {
 }
 
 # Run the application 
-shinyApp(ui = ui, server = server)
+shinyApp(ui = ui_2, server = server)
