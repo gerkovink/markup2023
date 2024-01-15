@@ -1,4 +1,4 @@
-# Version 1.0.0-beta
+# Version 1.2.0-beta
 
 #
 # This is a Shiny web application. You can run the application by clicking
