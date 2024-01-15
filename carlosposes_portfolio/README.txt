@@ -4,7 +4,7 @@ My first deliverable is the manuscript of my research report, in the .zip file "
 
 My second deliverable is the research repository detailing a reproducible simulation that I submitted as my exercise for week 4. It is on this pull request: https://github.com/gerkovink/markup2023/pull/3, named 'add Week 4 exercise Carlos Poses".
 
-My third deliverable is my personal website, which can be found here: https://carlosposes.github.io/. The code can be found here: https://github.com/CarlosPoses/CarlosPoses.github.io and is written in Quarto; pushing to that repo automatically updates the website.
+My third deliverable is my personal website, which can be found here: https://carlosposes.github.io/. The code can be found here: https://github.com/CarlosPoses/CarlosPoses.github.io and is written in Quarto; pushing to that repo automatically updates the website. A .zip version of the repo can also be found on this folder.
 
 My fourth deliverable is the Shinny App that can be checked here: https://carlosposes.shinyapps.io/spainmap/, whose source code can be checked here: https://github.com/CarlosPoses/MapSpain. 
 
