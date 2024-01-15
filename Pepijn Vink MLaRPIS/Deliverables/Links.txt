@@ -1,0 +1,4 @@
+Personal Repository: https://www.pepijnvink.github.io
+Personal repository template: https://github.com/pepijnvink/pepijnvink.github.io
+Markup manuscript and research repository: https://github.com/pepijnvink/Research-Report
+R package: https://github.com/pepijnvink/thesisvink
