@@ -1,0 +1,13 @@
+---
+title: "Marta Sech"
+about:
+  template: jolla
+  image: marta_pic.jpeg
+  links:
+    - text: Github
+      href: https://github.com/martas1999
+    - text: Email
+      href: mailto::sechmarta@yahoo.it
+---
+
+Research master student in Methodology and Statistics
