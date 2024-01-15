@@ -18,12 +18,7 @@ library(ggformula)
 library(tidyverse)
 library(RColorBrewer)
 library(shinydashboard)
-# library(rjson)
-library(rstudioapi)  
-script_path <-getSourceEditorContext()$path 
-
-# Set the working directory to the directory of the script
-setwd(dirname(script_path))
+library(rjson)
 
 # Load data
 data(birthwt, package = "MASS")
@@ -90,7 +85,7 @@ df <- birthwt %>%
 #   )
 # )
 
-ui_2 <- fluidPage(theme = shinytheme("flatly"),
+ui <- fluidPage(theme = shinytheme("flatly"),
                   titlePanel("Risk Factors of Low Birth Weight"),
                   sidebarLayout(
                     sidebarPanel(
@@ -103,16 +98,16 @@ ui_2 <- fluidPage(theme = shinytheme("flatly"),
                     ),
                     mainPanel(
                       box(
-                        HTML("<p> \n This Shiny application is a platform to explore and visualize data on risk factors associated with low birth weight.
+                        p("This Shiny application is a platform to explore and visualize data on risk factors associated with low birth weight.
                         Developed using R and integrating libraries like ggplot2, shinydashboard, and tidyverse, the app provides a dashboard 
-                        to analyze birth weight data from a study by Venables and Ripley (2002) \n </p>"),
+                        to analyze birth weight data from a study by Venables and Ripley (2002)."),
                         width="100%", height=150
                       ),
                       box(plotOutput("boxplot"), width="100%", height=500),
                       box(plotOutput("violin"), width = "100%", height = 500),
                       box(plotOutput("scatter"), width = "100%", height = 500),
                       box(
-                        HTML("<p>Venables, W. N. and Ripley, B. D. (2002). Modern Applied Statistics with S. Fourth edition. Springer.</p>"),
+                        p("Venables, W. N. and Ripley, B. D. (2002). Modern Applied Statistics with S. Fourth edition. Springer."),
                         width="100%", height=100
                       )
                     )
@@ -168,4 +163,4 @@ server <- function(input, output) {
 }
 
 # Run the application 
-shinyApp(ui = ui_2, server = server)
+shinyApp(ui = ui, server = server)
