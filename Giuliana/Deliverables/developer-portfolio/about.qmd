@@ -1,0 +1,16 @@
+---
+title: "About Me"
+about:
+  template: solana
+  image: picture.JPG
+  image-shape: rounded
+  image-width: 20em
+---
+
+I'm Giuliana Orizzonte, a graduate student in applied statistics based in Amsterdam. I'm in the final year of the Research Master Methodology and Statistics for the Behavioural, Biomedical, and Social Sciences at Utrecht University, and I will graduate in June 2024.
+
+My master thesis is on the use of Graph Neural Networks for patient classification and analysis of disease mechanisms. Outside of my studies, I work as a Junior Researcher at the Amsterdam University of Applied Sciences in the Responsible IT work group. Here, I'm involved in projects like an AI-based consensus machine and methods to de-bias algorithms during training, which allows me to combine my interest in statistics with a commitment to responsible technology that supports human wellbeing and development.
+
+I'm open to job opportunities in data science, machine learning, and beyond, always looking to apply my skills in meaningful and impactful ways.
+
+In my free time I read, go to concerts, ponder over the meaning(lessness) of life, and play board games. My favorite author is Saramago, my favorite concert was New Order, my favorite philosophical theory is Absurdism, and the jury is still out on my favorite game.
