@@ -14,9 +14,7 @@ website:
 
 format:
   html:
-    theme:
-      light: minty
-      dark: lux
+    theme: lux
     css: styles.css
     toc: true
     page-layout: full
