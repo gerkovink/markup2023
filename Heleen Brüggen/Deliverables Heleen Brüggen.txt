@@ -5,3 +5,5 @@ https://heleenbrueggen.github.io/
 
 This website includes links and download links for my LateX markup manuscript, a reproducible research repository on Github, and the website itself.
 These is also a link to the repository of the R-package I created for this course.
+
+You can also find the folders for all the weekly exercises in this repository.
