@@ -7,3 +7,6 @@ The app’s dashboard interface allows for the selection of two variables, one c
 - Scatter Plot: Visualize correlations between the selected continuous variable and birth weight in grams, divided by the selected categorical variable.
 
 These visualizations make the data easily interpretable. This Shiny app is a suitable tool to explore the factors influencing neonatal birth weight.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10515395.svg)](https://doi.org/10.5281/zenodo.10515395)
+
