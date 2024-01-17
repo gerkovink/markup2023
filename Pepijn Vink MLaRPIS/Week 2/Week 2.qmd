@@ -1,0 +1,184 @@
+---
+title: "My Current Projects"
+author:
+  name: Pepijn Vink
+  orcid: 0000-0001-6960-9904
+  email: p.a.vink@uu.nl
+  affiliations:
+    - name: Methodology & Statistics @ UU
+date: last-modified
+date-format: "D MMM YYYY"
+editor: source
+execute:
+  echo: false
+  cache: true
+format: 
+  revealjs:
+    progress: true
+    transition: fade
+    theme: simple
+    reference-location: document
+    logo: "UU_logo_2021_NL_RGB.png"
+    css: style.css
+bibliography: Traineeship.bib
+---
+
+## Some Research Report Results
+
+```{r}
+#| label: load data
+load("biases_pres.RData")
+library(tidyverse)
+library(jtools)
+library(plotly)
+library(DiagrammeR)
+library(kableExtra)
+library(DT)
+```
+
+Here is a plot from my research project, showing bias of the different methods.
+
+```{r}
+#| label: plot 1
+#| include: true
+#| echo: false
+m1_biases %>%
+  mutate(model = fct_relevel(name, c("riclpm", "dpm", "riclpm.free", "dpm.free"))) %>%
+  ggplot(aes(x = bias, y = model)) +
+  geom_point(size=3, color = "darkred") +
+  geom_errorbar(aes(xmin = bias-mcse, xmax = bias+mcse), width=0.2) +
+  scale_x_continuous(limits = c(-0.05,0.05)) +
+  scale_y_discrete(limits=rev,
+                   labels = c("DPM with Free Loadings",
+                              "RI-CLPM with Free Loadings",
+                              "DPM",
+                              "RI-CLPM")) +
+  geom_vline(xintercept=0, linetype="dashed") +
+  theme_apa() +
+  theme(axis.text = element_text(face = "bold",
+                                   size = 15),
+        axis.title = element_text(face = "bold",
+                                   size = 18)) +
+  labs(x = "Bias. True effect = 0.1",
+       y = "Models")
+```
+
+##
+
+This is the code I used to make the figure:
+
+```{r}
+#| label: plot 1 code
+#| eval: false
+#| echo: true
+m1_biases %>%
+  mutate(model = fct_relevel(name, c("riclpm", "dpm", "riclpm.free", "dpm.free"))) %>%
+  ggplot(aes(x = bias, y = model)) +
+  geom_point(size=3, color = "darkred") +
+  geom_errorbar(aes(xmin = bias-mcse, xmax = bias+mcse), width=0.2) +
+  scale_x_continuous(limits = c(-0.05,0.05)) +
+  scale_y_discrete(limits=rev,
+                   labels = c("DPM with Free Loadings",
+                              "RI-CLPM with Free Loadings",
+                              "DPM",
+                              "RI-CLPM")) +
+  geom_vline(xintercept=0, linetype="dashed") +
+  theme_apa() +
+  theme(axis.text = element_text(face = "bold",
+                                   size = 15),
+        axis.title = element_text(face = "bold",
+                                   size = 18)) +
+  labs(x = "Bias. True effect = 0.1",
+       y = "Models")
+```
+
+##
+This is an interactive version of the figure:
+```{r}
+#| label: plot interactive
+#| include: true
+#| echo: false
+plt <- m1_biases %>%
+  mutate(model = fct_relevel(name, c("riclpm", "dpm", "riclpm.free", "dpm.free"))) %>%
+  ggplot(aes(x = bias, y = model)) +
+  geom_point(size=3, color = "darkred") +
+  geom_errorbar(aes(xmin = bias-mcse, xmax = bias+mcse), width=0.2) +
+  scale_x_continuous(limits = c(-0.05,0.05)) +
+  scale_y_discrete(limits=rev,
+                   labels = c("DPM with Free Loadings",
+                              "RI-CLPM with Free Loadings",
+                              "DPM",
+                              "RI-CLPM")) +
+  geom_vline(xintercept=0, linetype="dashed") +
+  theme_apa() +
+  theme(axis.text = element_text(face = "bold",
+                                   size = 15),
+        axis.title = element_text(face = "bold",
+                                   size = 18)) +
+  labs(x = "Bias. True effect = 0.1",
+       y = "Models")
+ggplotly(plt)
+```
+
+##
+Here is a table with results
+```{r}
+#| label: tbl-measures
+#| tbl-cap: "Relative Bias, RMSE, and Covarage for Each Scenario on the Effect of $x_4$ on $y_5$. The True Effect is 0.1"
+#| include: true
+tab_dat <- rbind(m1_biases, m2_biases) %>%
+  mutate(Model = fct_relevel(name, c("riclpm", "dpm", "riclpm.free", "dpm.free")),
+         Model = factor(Model, levels = c("riclpm", "dpm", "riclpm.free", "dpm.free"),
+                        labels = c("RI-CLPM", "DPM", "RI-CLPM (free loadings)", "DPM (free loadings)")),
+         Scenario = c(rep("1", 4), rep("2", 4)),
+         rel_bias = bias/0.1*100,
+         cover_perc = coverage*100) %>%
+  dplyr::select(Scenario, Model, rel_bias, mse, cover_perc) %>%
+  mutate_if(is.numeric, round, digits = 3)
+colnames(tab_dat) <- c("Scenario", "Model", "Relative Bias (%)", "MSE", "Coverage (%)")
+datatable(tab_dat, rownames = F)
+```
+
+## Traineeship
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+My traineeship is on the underlying causal DAGs, sometimes refered to as Bayesian networks, using Bayesian methods. The figure on the right shows an example of a DAG.
+
+:::
+
+::: {.column width="50%}
+
+```{dot}
+//| label: dag
+//| fig-width: 4
+//| fig-height: 6
+digraph G {
+  A -> {C D};
+  B -> D;
+  C -> E;
+}
+```
+        
+:::
+
+::::
+
+## Model Example
+These are examples of models that are used. These are by @ben-david2015:
+
+$$
+\begin{align}
+\boldsymbol{Y}\mid((D,L),\mathcal{D}) &\sim \mathcal{N}_p(\boldsymbol{0},(LD^{-1}L^T)^{-1}), \\
+(D, L)\mid\mathcal{D} &\sim \pi_{U,\boldsymbol{\alpha}(\mathcal{D})}^{\boldsymbol{\Theta}_{\mathcal{D}}} \\
+\pi(\mathcal{D}) &= \prod_{i=1}^{p-1}q^{v_i(\mathcal{D})}(1-q)^{p-i-v_i(\mathcal{D})}
+\end{align}
+$$
+
+Where $\pi_{U,\boldsymbol{\alpha}(\mathcal{D})}^{\boldsymbol{\Theta}_{\mathcal{D}}}$ is the DAG Wishart distribution and $v_i(\mathcal{D}) = |pa_i(\mathcal{D})|$.
+
+## References
+::: {#refs}
+:::
