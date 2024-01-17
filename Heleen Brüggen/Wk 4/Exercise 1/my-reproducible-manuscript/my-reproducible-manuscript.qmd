@@ -1,0 +1,69 @@
+---
+title: "My Reproducible Manuscript"
+author: "Heleen Brüggen"
+format: html
+bibliography: references.bib
+---
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: libearies
+library(ggplot2)
+library(palmerpenguins)
+```
+
+# Meet Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. 
+To learn more about Quarto see <https://quarto.org>.
+
+# Meet the penguins
+```{r}
+#| echo: false
+#| label: data
+penguins <- palmerpenguins::penguins
+```
+
+::: columns
+::: {.column width="50%"}
+The `penguins` data from the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) package contains size measurements for `r nrow(penguins)` penguins from three species observed on three islands in the Palmer Archipelago, Antarctica [@horst2020].
+
+The plot below shows the relationship between flipper and bill lengths of these penguins from the package of Horst, Hill and Gorman [-@horst2020].
+:::
+
+::: {.column width="50%"}
+![](https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png){fig-align="left"}
+:::
+::: 
+
+# Results 
+
+```{r}
+#| echo: false
+#| fig.cap: "Flipper and Bill length"
+#| fig.align: "center"
+#| warning: false
+#| label: flipper-and-bill-plot
+ggplot(penguins, 
+       aes(x = `flipper_length_mm`, y = `bill_length_mm`)) +
+        geom_point(aes(color = species, shape = species)) +
+        scale_color_manual(values = c("darkorange","purple","cyan4")) +
+        labs(
+                title = "Flipper and Bill length",
+                subtitle = "Dimensions for penguins at Palmer Station LTER",
+                x = "Flipper length (mm)", y = "Bill length (mm)",
+                color = "Penguin species", shape = "Penguin species"
+        ) +
+        theme_minimal()
+```
+
+The number of Gentoo and Chinstrap penguins is `r sum(penguins$species == "Gentoo" | penguins$species == "Chinstrap")`.
+
+```{r}
+#| file: "scripts/do_addition.R"
+#| eval: true 
+#| echo: false
+```
+
+Testing the adding function with 22 and 5 gives `r do_addition(22,5)`.
