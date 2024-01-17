@@ -1,0 +1,33 @@
+---
+title: "Counterfactual Fairness"
+description: "Implementing Counterfactual Fairness in DevOps"
+author:
+  - name: Giuliana Orizzonte
+    affiliation: Responsible IT Amsterdam, Amsterdam University of Applied Sciences
+date: 2023-09-03
+image: SEMbayes.png
+categories: [Work Project]
+draft: false
+---
+
+The aim of this project is to explore the possibility of utilizing the theory of counterfactual fariness to build predictive models that eliminate the biases many machine learning models grapple with. Unfortunately, the project was temporarily shelved due to shifting priorities, but I am looking forward to continue with it in 2024!
+
+So far I have created a script to implement CFF in a classification model, and the next steps involve assessing the feasibility of utilizing CFF in DevOps, particularly with large datasets, and exploring whether a focus on fairness affects other performance metrics.
+
+While I do have an interim 6-page report, I am sure nobody wants to be subjected to this torture, so here I highlight some key points of my work:
+
+**Counterfactual Fairness Framework:** Counterfactual Fairness defines Fairness using Counterfactuals, i.e., alternative realities where sensitive features (such as race or gender) are altered while other features remain constant. For example, we may define a model to answer the question "Would the same person have been hired if they had been an immigrant (or not)?". If the model predictions remain consistent between the factual and the counterfactual, it indicates fairness. This study replicated the CFF methodology from a previous paper, focusing on gender bias in hiring decisions.
+
+**Comparison of Bayesian and Frequentist Statistics:** The study explores counterfactual fairness using both a deterministic model, rooted in frequentist statistics, and a non-deterministic model, rooted in Bayesian statistics. It examines conceptual differences between frequentist and Bayesian statistics, emphasizing their impact on predictive modeling and fairness. While the non-deterministic model results in fairer predictions, its implementation does considerably slow down prediction - which highlights the trade-offs in model performance that may occur when focusing on fairness.
+
+**Methodology:**
+
+-   Data Source: The "Utrecht Fairness Recruitment dataset" from Kaggle, simulating hiring decisions in Dutch companies.
+
+-   Model Levels: Two CFF levels were tested:
+
+    -   Level 2: Uses Bayesian and frequentist estimation, involving latent variables for non-deterministic causes of observable variables.
+
+    -   Level 3: Employs a deterministic model with latent variables, focusing on additive error models.
+
+**Findings:** The Counterfactual Fairness framework effectively reduces bias in predictive models. Bayesian methods are preferred for datasets with less variance and more binary variables, offering flexible and precise estimates. In contrast, frequentist methods are better suited for large datasets with continuous variables, providing faster implementation and broader probability ranges. This study supports the use of CFF in predictive models to achieve ethical and effective decision-making.

@@ -1,0 +1,23 @@
+---
+title: "Giuliana Orizzonte"
+about:
+  template: jolla
+  image: danny.png
+  image-shape: round
+  image-width: 12em
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/gorizzon
+    - icon: linkedin
+      text: Linkedin
+      href: https://www.linkedin.com/in/giuliana-orizzonte/
+---
+
+Welcome to my digital home.
+
+I'm a graduate student in applied statistics and aspiring data scientist.
+
+Currently I study at Utrecht University, I'm doing my thesis at the Biostatistics and Data Science department of the Utrecht UMC, and I work at the Amsterdam University of Applied Sciences as a junior researcher in responsible IT (and, since last year, AI).
+
+I like pretty graphs and statistics/math/data science memes, feel free to share something cool with me :)

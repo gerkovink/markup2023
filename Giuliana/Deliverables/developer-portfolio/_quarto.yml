@@ -1,0 +1,23 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Giuliana Orizzonte"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - CV.qmd
+      - Projects.qmd
+
+format:
+  html:
+    theme: lux
+    css: styles.css
+    toc: true
+    page-layout: full
+
+editor: visual
+
