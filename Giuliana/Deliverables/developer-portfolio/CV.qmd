@@ -1,0 +1,31 @@
+---
+title: "CV"
+---
+
+## Education
+
+-   2022 - 2024: Research MSc in Methodology and Statistics, Utrecht University
+
+    The core curriculum includes courses such as Multivariate Statistics, Computational Inference with R, Multilevel Modelling, Bayesian Statistics, and Biomedical Statistics. The focus of my specialization is in applied data science and machine learning, and my thesis is on multi-omics data integration and machine learning techniques for data augmentation.
+
+-   2018 - 2021: BSc in Psychology, University of Amsterdam
+
+    GPA of 9.08 / 10. Graduated Cum Laude. Courses include Scientific & Statistical Reasoning, Research and Writing Practicum, Research Methods and Statistics, Neuropsychology, Cognitive Psychology.
+
+-   2013 - 2016: Bachelor of Liberal Arts and Sciences in Computer Science, Amsterdam University College
+
+    GPA of 3.5 / 4. Major in Computer Science and Logic. Courses include Big Data, Computational Thinking, Advanced Logic, Information Lab, Mathematical Logic, Data Structure and Algorithms.
+
+## Work Experience
+
+-   October 2022 - ongoing: Junior Researcher Responsible IT and Responsible AI, Amsterdam University of Applied Sciences
+
+    I contribute to finding and creating solutions to integrate responsibility and trustworthiness in technology and artificial intelligence. Each year, the team works on specific projects, often in cooperation with companies or social organizations located in the Netherlands. We also contribute to the academic programs offered by the Amsterdam University of Applied Sciences. In 2023, I worked on an AI-based consensus machine and a method to de-bias algorithms during training using counterfactuals and Bayesian inference.
+
+-   October 2022 - ongoing: Research Assistant Methodology and Statistics, Utrecht University
+
+    I support Dr. K.M. Meitinger in her academic research projects. In the past year, my work included the following: preparing a report on the viability and reliability of using home testing kits for water quality in a citizen science project led by the Dutch Bureau of Statistics, writing a literature review on the use of paradata to assess measurement equivalence, and integrating voice recordings in survey design. In the summer of 2023, I also worked as a research assistant for Dr. R.M. Kuiper, for whom I created tutorials demonstrating how to use the R package \`restriktor\`, which implements functions to calculate the GORIC(A) information criterion and perform Evidence Synthesis.
+
+-   August 2023: Teaching Assistant Applied Multivariate Analysis, Utrecht Summer School
+
+    I conducted labs, discussion meetings, and quizzes to facilitate and reinforce students' learning of statistical techniques ranging from simple T-tests to Principal Component Analysis. The course was taught by Dr. D.J. Hessen and is intended to serve as both a revision and further study for graduate students and Ph.D. researchers.

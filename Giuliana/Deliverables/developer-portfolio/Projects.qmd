@@ -1,0 +1,10 @@
+---
+title: "Projects"
+listing: 
+  contents: projects_list # all Quarto docs in the `projects` directory are included on this listing page
+  type: default
+  sort: "date desc"
+  categories: true # allows you to sort posts by assigned categories 
+---
+
+These are some of the projects that I have worked on.

@@ -1,0 +1,3 @@
+I had little ideas about what package to create, so I just recreated the package from lecture 6
+
+link to original repo - https://github.com/Corzina/roundR3

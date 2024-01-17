@@ -1,0 +1,32 @@
+---
+title: "MarkUp Language Short Presentation"
+author: 
+    name: Min Wen Yang
+    orcid: 0009-0008-0405-0570
+format: 
+    revealjs
+        #css: logo.css
+#css: style.css
+---
+
+## My Favorite Equation
+
+Taylor's Theorem
+$$f(x)=\sum_{k=0}^\infty f^{(k)}(a)\frac{(x-a)^k}{k!}$$
+
+## Something Else About Me
+
+- Left Handed
+- Lazy to have a hair cut
+- Already spent 1000 hours on Animal Crossing
+
+![Tutu](Tutu_NH.png){width=9%}
+![Monika](Audie_NH.png){width=9%}
+![Lucky](Lucky_NH.png){width=8%}
+![Teddy](Teddy_NH.png){width=9%}
+![Judy](Judy_NH.png){width=7%}
+![Fang](Fang_NH.png){width=9%}
+![Raymond](Raymond_NH.png){width=7%}
+![Shari](Shari_NH.png){width=8%}
+![Margie](Margie_NH.png){width=11%}
+![Ione](Ione_NH.png){width=9%}

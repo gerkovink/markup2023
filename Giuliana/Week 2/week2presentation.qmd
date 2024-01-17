@@ -1,0 +1,184 @@
+---
+title: "Week 2 Presentation"
+format: 
+  revealjs:
+    auto-stretch: false
+    theme: simple
+    transition: convex
+    slide-number: true
+    logo: "uu_logo.png"
+    scrollable: true
+    reference-location: margin
+author:
+  - name: "Giuliana Orizzonte"
+    orcid: 0009-0002-8875-8678
+    email: g.orizzonte@uu.nl
+    affiliation: 
+      - name: Utrecht University
+        city: Utrecht, The Netherlands
+        url: www.uu.nl
+bibliography: references.bib
+---
+
+## A Centered Still Figure
+
+<center>
+
+![The current state of affairs.](maths.jpg){width=500 fig-align="center"}
+
+</center>
+
+## An Interactive Table
+
+```{r, echo=FALSE}
+library(DT)
+
+data(iris)
+
+datatable(iris, 
+          options = list(
+            autoWidth = TRUE,
+            pageLength = 10,
+            initComplete = JS(
+              "function(settings, json) {",
+              "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+              "$(this.api().table().container()).css({'font-size': '0.5em'});", # Adjust font size
+              "}")
+)
+)
+```
+
+## A Movie
+
+### Why is π in the normal distribution?
+
+<center>
+
+{{< video https://youtu.be/cy8r7WSuT1I?si=NdDf6wL3XZI4yxPF width="700" height="480" >}}
+
+</center>
+
+## A 2-column Slide
+
+::: columns
+::: {.column width="50%"}
+![The sine wave function](sine.png){fig-align="left"}
+
+- Period = $2\pi$
+- Amplitude = $1$
+- Mean position: $y = 0$
+- Domain: ${\rm I\!R}$
+- Range: $[−1, 1]$
+- Many-to-one function
+- Odd function
+
+:::
+
+::: {.column width="50%"}
+![The cosine wave function](cosine.png){fig-align="left"}
+
+- Period = $2\pi$
+- Amplitude = $1$
+- Mean position: $y = 0$
+- Domain: ${\rm I\!R}$
+- Range: $[−1, 1]$
+- Many-to-one function
+- Even function
+
+:::
+:::
+
+## A Multi-row Equation
+
+A system of equations: 
+
+$$
+\begin{align}
+x + y + z & = 2 \\
+6x - 4y + 5z & = 31\\
+5x + 2y + 2z & = 13
+\end{align}
+$$
+
+## Citations
+
+An autoencoder is a neural netowrk architecture used for unsupervised learning [@kingma2013auto] . It's designed to compress the input data into a lower-dimensional representation and then reconstruct it back to the original form [@bohm2020probabilistic]. It consists of two components: an encoder $f$ and a decoder $g$, which function in tandem. The encoder transforms data from its original domain to a compressed representation in a latent space $Z$ with lower dimensions $L$. Subsequently, the decoder reconstructs the data back into the original space from this latent space, thus $z = f(x)$ and $\tilde{x} = g(z)$ [@Li2022].\
+\
+
+### Reference List
+
+::: {#refs}
+:::
+
+## R-code, Displayed but not Executed
+
+````{r, eval=FALSE, warning=FALSE}
+#| echo: true
+
+library(medicaldata)
+library(dplyr)
+library(RColorBrewer)
+library(ggplot2)
+library(tidyr)
+
+dat <- supraclavicular %>%
+  dplyr::select(group, bmi, age, onset_sensory, onset_motor, med_duration) %>%
+  mutate(anestethic = as.factor(group)) %>%
+  select(!group)
+
+dat %>%
+  pivot_longer(where(is.numeric)) %>%
+  ggplot(aes(x = anestethic, y = value, color = anestethic)) +
+  geom_boxplot(alpha = 0.7) +
+  coord_flip() +
+  facet_wrap(~name, scales = "free",shrink=FALSE) +
+  labs(title = "Boxplots of anesthetic type by covariates and dependent variables") +
+  theme_classic() +
+  scale_color_brewer(palette="Accent") +
+  scale_fill_brewer(palette="Accent") +
+  theme(legend.position="none")
+````
+
+## R-code, Executed but not Displayed
+
+### Also Cached and Labeled
+
+```{r plots_figure, echo=FALSE, warning=FALSE, cache=TRUE}
+library(medicaldata)
+library(dplyr)
+library(RColorBrewer)
+library(ggplot2)
+library(tidyr)
+
+dat <- supraclavicular %>%
+  dplyr::select(group, bmi, age, onset_sensory, onset_motor, med_duration) %>%
+  mutate(anestethic = as.factor(group)) %>%
+  select(!group)
+
+dat %>%
+  pivot_longer(where(is.numeric)) %>%
+  ggplot(aes(x = anestethic, y = value, color = anestethic)) +
+  geom_boxplot(alpha = 0.7) +
+  coord_flip() +
+  facet_wrap(~name, scales = "free",shrink=FALSE) +
+  labs(title = "Boxplots of anesthetic type by covariates and dependent variables") +
+  theme_classic() +
+  scale_color_brewer(palette="Accent") +
+  scale_fill_brewer(palette="Accent") +
+  theme(legend.position="none")
+```
+
+## An `renv` Reproducible Environment
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE}
+library(renv)
+
+renv::init()
+```
+
+```{r, echo=TRUE}
+renv::snapshot()
+
+sessionInfo()
+```
+
