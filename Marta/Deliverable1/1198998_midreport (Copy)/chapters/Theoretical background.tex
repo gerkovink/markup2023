@@ -1,0 +1,64 @@
+\section{Models for ranking data}
+Literature offers a wide range of parametric models to deal with ranking data, nicely summarised by \cite{critchlow1991probability}. These models are typically explained in terms of judges' preferences for different items. As the framework context of this article is competitive games, in this project games assume the role of judges and the competitors participating in each game represent the ranked items.\\
+\\
+If competitors' abilities want to be inferred from ranking data,\cite{bradley1952rank} model can possibly be used. This model is suited to analyse paired-comparison data, for which the probability that a player $i$ wins against another player $j$ $p_{ij}$  is modeled as: 
+\begin{equation*}
+p_{ij} = F(\lambda_{i}-\lambda_{j}),
+\end{equation*}
+where $F$ is the logistic function and $\lambda_{i}=log⁡(\alpha_{i})$ for all $i$. $\alpha_{i}$ is a positive value representing the ability of the $i-th$ competitor and can therefore be used to rate competitors in head-to-head competitions. Nonetheless, this model can also be applied to a multi-competitor game context where $n$ competitors compete against each other in each game. This is done by converting the ranking of competitors in each game into the $n(n-1)/2$ set of possible paired comparisons between them. Still, this may not represent the most optimal approach, as it would cause a loss of efficiency in the estimation of the ability parameters, as shown in \cite{zhang2021building}.\\
+\\
+This is the reason why in multi-competitor contexts the most popular choice is to use the Plackett-Luce model, which belongs to the category of “order statistics models”, according to the classification proposed in \cite{critchlow1991probability}.
+\cite{thurstone1927law} can be considered the forerunner of this class of models, which are based on the idea that the position of each competitor in the rank is determined by their value on an unobserved and random variable, referred to as “utility” by Thurstone. The relative positions of competitors on this scale determine their rank: higher utilities are associated with a better position. This property can be expressed through the following equation:
+\begin{equation*}
+p(\pi) = p(y_{[1]} > y_{[2]} > \dots > y_{[n]}),
+\end{equation*}
+where $p(\pi)$ represents an observed ranking of competitors and $y_{[1]},...,y_{[n]}$ is the ordered vector of the latent utilities.
+ Thurstone  hypothesised that each utility can be decomposed into $y_i=\theta_i+\epsilon_i$ where $\theta_i$  is a real constant representing the expected utility of  $i-th$ competitor and the $\epsilon_i$   represents the error term. He further assumed that $\epsilon_i$ are random and independent vectors with a cumulative distribution function corresponding to a standard normal distribution. Later models assumed other types of distributions. While \cite{henery1983permutation} used a Gamma distribution, \cite{luce1959possible} and \cite{plackett1975analysis}, opted for using  a Gumbel (type 1 extreme value) distribution, for which utilities have the following cumulative function:
+\begin{equation*}
+F(y_i \mid \boldsymbol{\theta}) = \exp\left(-\exp(-(y_i - \theta_i))\right)
+\end{equation*} 
+This model has become particularly used in numerous extensions and applications since it leads to a closed form for the probability of each observed ranking of $n$ competitors  $\pi$:
+\begin{equation*} 
+p(\pi) = \prod_{i=1}^{n-1}  \frac{\exp(\theta_{i})}{\sum_{l=i}^{n} \exp(\theta_{l})} 
+\end{equation*} 
+This  form implies that the probability of each ranking can be expressed as the product of the top-choice probabilities, i.e. the product of the probability the first competitor is ranked first among all the competitors times the probability the second competitor is ranked first among all competitors except for the first one and so on. Indeed, the probability $p_{i}$ that competitor $i$ is ranked first in a set of $n$ competitors, is given by:
+\begin{equation*}
+p_{i} = \frac{\exp(\theta_{i})}{\sum_{i=1}^{n} \exp(\theta_{i})}
+\end{equation*}
+\\
+This formulation ensures that the model respects the Independence of Irrelevant Alternatives axiom (IIA)\parencite{tversky1972elimination}. This axiom postulates that the probability that a competitor $i$ outperforms another competitor $j$ in a game is irrelevant from the composition of the group of competitors entering the game.\\
+\\
+Rank-Ordered Logit models (\cite{hausman1987specifying}) represents a generalisation of the Plackett-Luce model  as they also include covariates, either competitor-specific, game-specific or specific on their combination and interactions. These models can also  handle cases where only a subset of players is ranked or when ties exist.\\
+\\
+The approach that will be used in this article is inspired by the one used in \cite{glickman2015stochastic} who applied the ROL model to the results given by women's Alpine downnhill skiing competitions recorded over a decade and use them to rate skiers abilities over time. In Glickman article the latent utilities of Thurstone are interpreted in terms of latent "performances" of players: every competitor in each game produces a performance which is mainly determined  by their ability. Higher performances are associated with a better position in the ranking. Under this specification,  $\theta_{i}$ can be regarded as  the ability of competitors $i=1,...,n$.\\
+
+\subsection{Alternative choices}
+Rank-Ordered Logit models represents the gold standard approach for inferring the abilities of competitors from the ranks given in multiple competitions. However, easier to interpret and implement approaches can be used to achieve the same goal.\\ 
+\\
+Sport fans all over the world may just decide to use the ranking of competitors from the last game and use it to compare them. Nonetheless, this simplistic approach would not allow the comparison between competitors entering different games and neither the possibility to investigate the impact of possible factors of interest on their abilities.\\
+\\
+Another solution can be the one adopted by \cite{eichenberger2009best}, who modeled the finishing positions of drivers in Formula One races using a simple linear regression with a dummy variable for each driver and a series of covariates as predictors. The comparison between the regression coefficients associated with each dummy variable can then give insights on the relative abilities of competitors. However, this approach assumes normally distributed residuals, which is often not seen in practice.\\
+\\
+The use of  a Beta regression model can overcome this problem, as it assumes a more flexible distribution for the dependent variable. \cite{stern2008ranking}, for example, applied this model to the victory margins of teams in crickets and use it to evaluate team strengths. This kind of model can be used to deal with outcome constrained to a specific range, typically between 0 and 1, such as proportions. \\
+\\
+ The approach that will be tested in this project focuses on the transformation of the ranking of players resulting from each game into a proportion of competitors beaten for each competitor in each game. We will then make use of the parameterization of the Beta regression model proposed by \cite{ferrari2004beta}. This directly models the mean of the distribution, in such a way that the density function is defined as:  
+\begin{equation*}
+f(y|\mu, \phi) = \frac{\Gamma(\phi)}{\Gamma(\mu\phi) \cdot \Gamma((1-\mu)\phi)} y^{\mu\phi-1} (1-y)^{(1-\mu)\phi-1},
+\end{equation*}
+where $0<\mu<1$  is the mean parameter and $\phi>0$ is the precision one, with larger values of $\phi$ associate to smaller variance, for fixed $\mu$.
+Under this specification, if $y_{i}$ represents the proportion of competitors beaten by competitor $i=1,...,n$, the variance of $y_{i}$ is defined as:
+\begin{equation*}
+{Var}(y_{i}) = \frac{\mu_i(1 - \mu_i)}{1 + \phi}.
+\end{equation*}
+The variance is therefore a function of the mean, allowing the model to accommodate situations of heteroskedasticity (\cite{cribari2010beta}).\\
+The mean of  $y_{i}$ can instead be expressed as:
+\begin{equation*}
+E(y_{i})=\mu_{i}=g^{-1}(\boldsymbol{x}\boldsymbol{\beta}),
+\end{equation*}
+where $g()$ is a link function that needs to be strictly monotonic and twice differentiable and $\boldsymbol{x}$ represents the vector of dummy variables each of them associated to $n-1$ competitors and $\boldsymbol{\beta}$ is the vector of associated regression coefficients. A common choice for $g()$ is the logistic function as it makes the parameters interpretable in terms of odds-ratio. If the logit link is chosen, the mean of the distribution of $y_{i}$ can be defined as:
+\begin{equation*}
+\mu_{i}=\frac{e^{\boldsymbol{x}\boldsymbol{\beta}}}{1 + e^{\boldsymbol{x}\boldsymbol{\beta}}}
+.
+\end{equation*}
+The estimated $\boldsymbol{\beta}$ can then be used to rate the competitors with higher coefficients associated with more skilled players.\\
+The underlying assumption of this specification of the Beta regression model is that the dispersion parameter is constant for all competitors. This adds to the generic assumption of independence of observations. Both these hypotheses may not be respected in the context of competitive games, and their impact on the  estimation of ability parameters will be evaluated in the current  project.

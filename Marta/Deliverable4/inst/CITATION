@@ -1,0 +1,13 @@
+citHeader("To cite mseR in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "martas1999/mseR: Version 0.2.0 - First release",
+  author   = "Marta Sech",
+  year     = "2024",
+  doi      = "10.5281/zenodo.10511397",
+  url      = "github.com/martas1999/mseR",
+  textVersion = paste(
+"Sech, M (2024). martas1999/mseR: Version 0.2.0 - First release (Version v0.2.0) [Computer software]. https://doi.org/10.5281/zenodo.10511397"
+  )
+)

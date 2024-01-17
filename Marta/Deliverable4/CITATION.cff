@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: Sech
+  given-names: Marta
+orcid: https://orcid.org/0009-0005-5630-0138
+title:martas1999/mseR: First release version
+version: v0.2.0
+date-released: 2024-01-14

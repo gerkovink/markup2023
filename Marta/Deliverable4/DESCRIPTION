@@ -1,0 +1,15 @@
+Package: mseR
+Type: Package
+Title: Compute the Mean squared error of an estimator
+Version: 0.2.0
+Author: Marta Sech
+Maintainer: Marta Sech <m.sech@students.uu.nl>
+Description: This package allows you to direclty compute the mean squared error, making it easier to evaluate your model performance.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.0
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
