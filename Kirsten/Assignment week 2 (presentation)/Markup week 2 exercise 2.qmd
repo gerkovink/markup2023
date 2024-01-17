@@ -1,0 +1,125 @@
+---
+title: "Assessing and improving measurement of ESCS in PISA 2018"
+subtitle: "Markup week 2 exercise 2"
+author: 
+  name: Kirsten van Kessel
+  orcid: 0009-0009-1265-8516
+  email: k.d.vankessel@students.uu.nl
+format: 
+  revealjs:
+    theme: simple
+    slide-number: true
+    logo: "logo.png"
+    scrollable: true
+editor: visual
+bibliography: references.bib
+tbl-cap-location: bottom
+---
+
+## PISA
+
+<iframe width="1008" height="567" src="https://www.youtube.com/embed/-xpOn0OzXEw?si=FXR6xepA5tJYt7e-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+
+</iframe>
+
+## Motivation
+
+<center>![](motivation.jpg){fig-align="center" width="100%"}</center>
+
+## Motivation
+
+![](ESCS.jpg){fig-align="center" width="100%"}
+
+## Current practises [@OECD2017techrep]
+
+::: columns
+::: {.column width="50%"}
+Equal weights:
+
+-   Pros: Stable over years, simple
+-   Cons: Performs worse -\> Measurement invariance
+:::
+
+::: {.column width="50%"}
+Regression imputation:
+
+-   Pros: Simple
+-   Cons: Outdated, performs worse
+:::
+:::
+
+## Allignment optimization [@kim2017measurement] {.smaller}
+
+$$
+    F = \sum_p \sum_{g_m<g_n} w_{g_m.g_n} f(\lambda_{pg_m} - \lambda_{pg_n}) + \sum_p \sum_{g_m<g_n} w_{g_m.g_n} f(\tau_{pg_m} - \tau_{pg_n})
+$$
+
+in which p is the number of indicators, $g_m$ and $g_n$ indicate country m and n for every pair of countries in the data, $\lambda_{pg_m}$ and $\lambda_{pg_n}$ indicate the factor loadings of country m and n, and $\tau_{pg_m}$ and $\tau_{pg_n}$ indicate the intercepts of country m and n. Within the total loss function $F$ the component loss function $f$ scales the difference between the parameters for every pair of countries and for every measurement parameter:
+
+$$
+    f(x) = \sqrt{\sqrt{x^2 + 0.01}}
+$$
+
+$w_{g_m.g_n}$ is a weight that represents the size of the countries. It is defined as:
+
+$$
+    w_{g_m.g_n} = \sqrt{N_{g_n} N_{g_m}}
+$$
+
+in which $N_{g_n}$ and $N_{g_m}$ are the number of participants from country n and m.
+
+## Creating HOMEPOS
+
+```{r, eval=F, echo=T}
+# drop the items where a score is missing
+data_homepos_long_complete <- data_homepos_long %>% drop_na(item_score)
+
+# estimate the parameters
+parms <- dexterMML::fit_2pl(data_homepos_long_complete %>% 
+                              dplyr::select(person_id, item_id, item_score))
+coef(parms)
+
+# calculate theta: the ability estimate
+theta <- ability.mml(data_homepos_long_complete, parms, method = "WLE")
+```
+
+## PISA's measure vs recreation {.smaller}
+
+|                  | Min    | 1st Qu. | Median | Mean  | 3rd Qu. | Max. |
+|------------------|--------|---------|--------|-------|---------|------|
+| HOMEPOS PISA     | -10.20 | -1.12   | -0.37  | -0.44 | 0.30    | 5.92 |
+| HOMEPOS computed | -9.55  | -0.67   | 0.03   | -0.01 | 0.69    | 6.99 |
+| ESCS PISA        | -8.17  | -1.01   | -0.19  | -0.28 | 0.59    | 4.21 |
+| ESCS computed    | -4.87  | -0.53   | 0.06   | 0.00  | 0.63    | 3.46 |
+
+## PISA's measure vs recreation
+
+```{r}
+#| cache: true
+
+# load library
+library(ggplot2, warn.conflicts = FALSE)
+library(plotly, warn.conflicts = FALSE)
+library(tidyr)
+
+# load data
+data <- readRDS("escs_data_plot2")
+data <- data %>% filter(data_all.data.CNT == "NLD" | 
+                          data_all.data.CNT == "USA" | 
+                          data_all.data.CNT == "BRA" | 
+                          data_all.data.CNT == "JPN" | 
+                          data_all.data.CNT == "AUS")
+
+ESCS_plot <- ggplot(data, aes(x = data_all.ESCS_PISA, y = data_all.ESCS, col = data_all.data.CNT)) + 
+  geom_point(alpha = 0.05) +
+  ggtitle("Comparing computed ESCS to the PISA ESCS for 5 example countries") +
+  xlab("Computed ESCS") + ylab("PISA ESCS") 
+ggplotly(ESCS_plot)
+
+
+```
+
+## References
+
+::: {#refs}
+:::
