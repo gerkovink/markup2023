@@ -1,0 +1,1 @@
+Research repository detailing a reproducible simulation (older version of this .zip repository) is also available as github repository as Week 4 excercise handed in before - https://github.com/Corzina/markup2023/tree/main/Week%204%20-%20Ex%202

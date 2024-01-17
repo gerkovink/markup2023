@@ -1,0 +1,58 @@
+\documentclass[12pt,twoside]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[round]{natbib}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\graphicspath{{images/}}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[left=27mm,right=27mm top=27mm, bottom=27mm]{geometry}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[LO,LE]{\leftmark}
+\fancyfoot{}
+\fancyfoot[CO,CE]{\thepage}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.2pt}
+
+% Redefine plain page style (used for chapter first pages)
+\fancypagestyle{plain}{
+    \fancyhf{} 
+    \fancyfoot[CO,CE]{\thepage}% Footer content for chapter pages
+    \renewcommand{\headrulewidth}{0pt} % Remove header rule
+    \renewcommand{\footrulewidth}{0.4pt} % Footer rule (adjust thickness if needed)
+}
+
+
+\usepackage[style=authoryear]{biblatex}
+\addbibresource{references.bib}
+
+
+
+\title{Tractable inference for latent ability in competitive games:approximating Bayesian rank-ordered models using a simpler proportion model.}\\
+
+\author{Marta Sech}
+\date{December 22nd 2023}
+
+\begin{document} 
+\input{title} 
+
+
+\tableofcontents
+
+\chapter{Introduction}
+\input{chapters/introduction}
+
+\chapter{Theoretical background}
+\input{chapters/Theoretical background}
+
+\chapter{Methods}
+\input{chapters/Methods}
+
+\addcontentsline{toc}{chapter}{References}
+\printbibliography
+
+
+\end{document}
