@@ -1,0 +1,44 @@
+---
+title: "The presentation of Carlos"
+author: 
+  - name: Carlos Poses
+    orcid: 0000-0002-6546-838X
+date: 13 Sep 2023
+date-format: "D MMM YYYY"
+execute: 
+  echo: true
+editor: source
+format: 
+  revealjs:
+    progress: true
+    multiplex: true
+    transition: fade
+    slide-number: true
+    margin: 0.075
+    toc: false
+    toc-depth: 1
+    toc-title: Outline
+    scrollable: false
+    width: 1200
+    embed-resources: true
+    reference-location: margin
+    footer: My presentation for Markup Languages @ UU
+---
+
+# My favorite equation
+
+The fundamental problem of causal inference:
+
+$$\pi_i = Y_i(1) - Y_i(0)$$
+
+Where $\pi_i$ represents the causal effect, and $Y_i(1)$ represents the outcome under treatment 1, and $Y_i(0)$ represents the outcome under treatment 0. 
+
+```{r}
+#| include: false
+library(mice)
+```
+
+# Some information about me
+
+I hardly ever speak Spanish, not even to my friends or family in Spain.
+

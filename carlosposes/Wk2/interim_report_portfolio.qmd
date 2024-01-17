@@ -1,0 +1,390 @@
+---
+title: "Synthetic controls methods to estimate the causal effect(s) of an intervention across multiple treated units"
+author: Carlos G. Poses
+execute:
+  echo: false
+format: 
+  revealjs:
+    logo: "uu-logo.png"
+    theme: [serif, custom.scss]
+    transition: fade
+    cache: false
+    background-transition: fade
+    incremental: true
+    fig-width: 9
+    smaller: true
+    fig-height: 7
+    margin-top: 200%
+    embed-resources: true
+    html-math-method: katex
+editor_options: 
+  chunk_output_type: console
+bibliography: thesis.bib
+---
+
+# The effect of a policy intervention
+
+![](plots/california_preint.png)
+
+# The effect of a policy intervention
+
+![](plots/california_alltime.png)
+
+# The effect of a policy intervention
+
+![](plots/california_alltime_annotated.png)
+
+
+# We need counterfactuals
+
+# A possible causal effect
+
+![](plots/california_preint.png)
+
+# A possible causal effect
+
+![](plots/california_larger_po.png)
+
+# A possible causal effect
+
+![](plots/compare_california_larger_po.png)
+
+
+# A possible causal effect
+
+![](plots/compare_california_larger_po_annotated.png)
+
+
+
+# Another possible causal effect
+
+![](plots/california_smaller_po.png)
+
+
+# Another possible causal effect
+
+![](plots/compare_california_smaller_po.png)
+
+
+# Another possible causal effect
+
+![](plots/compare_california_smaller_po_annotated.png)
+
+
+# Estimating the counterfactual
+
+# Using auxiliary data to reconstruct the counterfactual
+
+![](plots/california_plus_all_states.png)
+
+
+# Using auxiliary data to reconstruct the counterfactual
+
+![](plots/california_selected_donors.png)
+
+# Using auxiliary data to reconstruct the counterfactual
+
+![](plots/animation.gif)
+
+
+
+
+# Synthetic control = estimated counterfactual
+
+![](plots/synthetic_preint.png)
+
+# Synthetic control = estimated counterfactual
+
+![](plots/synthetic_california_preint_annotated.png)
+
+# Synthetic control = estimated counterfactual
+
+![](plots/synthetic_california_preint.png)
+
+# Synthetic control = estimated counterfactual
+
+![](plots/synthetic_california_postint.png)
+
+# Synthetic control = estimated counterfactual
+
+![](plots/unbiased_causal_effect.png)
+
+# Behind the scenes: weights estimation
+
+- Synthetic control: **weighted** average of other units
+
+- Estimation...
+  - is complex
+  - is sparse
+  - 'Matching' on predictors
+
+
+
+# Synthetic control
+<br>
+<br>
+
+<center>
+Simply a weighted average!
+</center>
+
+:::: columns
+
+::: {.column width="50%"}
+![](plots/synthetic_preint_selected_donors.png)
+:::
+::: {.column width="50%"}
+
+<br> 
+
+$$\begin{align*}
+    &\text{Synthetic California}_{t} = \\
+    &\quad w_{\text{Nevada}} \cdot \small{\text{Sales}}_{\text{Nevada}} + \\
+    &\quad w_{\text{Connecticut}} \cdot \small{\text{Sales}}_{\text{Connecticut}} + \\
+    &\quad w_{\text{Colorado}} \cdot \small{\text{Sales}}_{\text{Colorado}} + \\
+    &\quad w_{\text{Montana}} \cdot \small{\text{Sales}}_{\text{Montana}} + \\
+    &\quad w_{\text{Utah}} \cdot \small{\text{Sales}}_{\text{Utah}}
+\end{align*}
+$$
+
+
+:::
+
+::::
+
+
+# 'Matching' on predictors
+
+```{r}
+data <- readRDS("proposition99.RDS")
+library(tidyverse)
+library(gt)
+
+predictors <- na.omit(data) %>% 
+  filter(state %in% c("Nevada", "Utah", "Montana", "Colorado", "Connecticut", "California"),
+         year < 1989) %>% 
+  select(state, age15to24, beer, lnincome) %>%
+  group_by(state) %>% 
+  summarize(age15to24 = round(mean(age15to24, na.rm = TRUE),2),
+            beer = round(mean(beer, na.rm = TRUE),2),
+            lnincome = round(mean(lnincome, na.rm = TRUE),2)) %>% 
+  pivot_longer(cols = 2:4, names_to = "Predictor") %>% 
+  pivot_wider(names_from = "state", values_from = "value")
+  
+  
+predictors_cal <- predictors %>% select(California)
+predictors_don <- predictors %>% select(!California)
+```
+
+
+
+:::: columns
+
+::: {.column width="20%"}
+```{r}
+
+predictors_cal %>% 
+  gt(rowname_col = "Predictors") %>% 
+  opt_table_font(font = "Serif") %>% 
+  as_raw_html()
+```
+:::
+
+::: {.column width="10%"}
+
+<br>
+
+
+:::
+
+::: {.column width="60%"}
+```{r}
+predictors_don %>% 
+  gt() %>% 
+  tab_stubhead(label = "X") %>% 
+  tab_options(table.width = pct(100)) %>% 
+  opt_table_font(font = "Serif") %>% 
+  as_raw_html()
+```
+:::
+
+::::
+
+# 'Matching' on predictors
+
+
+:::: columns
+
+::: {.column width="20%"}
+```{r}
+
+predictors_cal %>% 
+  gt(rowname_col = "Predictors") %>% 
+  opt_table_font(font = "Serif") %>% 
+  as_raw_html()
+```
+:::
+
+::: {.column width="10%"}
+
+<br>
+$$ = $$
+
+:::
+
+::: {.column width="60%"}
+```{r}
+predictors_don %>% 
+  mutate(Colorado = paste0("W_Col*", round(Colorado, 2)),
+         Connecticut= paste0("W_Con*", round(Connecticut, 2)),   
+         Montana = paste0("W_Mon*", round(Montana, 2)),
+         Nevada = paste0("W_Nev*", round(Nevada, 2)), 
+         Utah = paste0("W_Utah*", round(Utah, 2))) %>% 
+  #tibble::column_to_rownames(var = "predictor") %>% 
+  gt() %>% 
+  tab_stubhead(label = "X") %>% 
+  tab_options(table.width = pct(100)) %>% 
+  opt_table_font(font = "Serif") %>% 
+  as_raw_html()
+```
+:::
+
+::::
+
+  - Where $w_j > 0$ and $\sum{w_j = 1}$
+
+# Where to go to know more?
+
+The synthetic control was developed by Alberto Abadie and collaborators. 
+
+- The best resource to understand synthetic controls i the overview paper by @abadie2021c.
+
+- Other nice resources are @abadie2010a (including the proof that the estimator is unbiased) and @abadie2003 (the first paper about the method).
+
+# How to fit a synthetic control model?
+
+It's pretty easy with the `tidysynth` package.
+
+```{r}
+#| eval: false
+#| echo: true
+library(tidysynth)
+
+freq_model <- synthetic_control(data = prop99, 
+                                outcome = cigsale,  
+                                unit = state, 
+                                time = year,  
+                                i_unit = "California",  # treated state
+                                i_time = 1988) # time of the intervention
+```
+
+# Note
+
+- If you want to take a peak at how the data look like, you can check it here:
+
+```{r}
+library(DT)
+
+data %>% 
+  datatable(options = list(pageLength = 6))
+  
+```
+
+
+# Two goals of the thesis
+
+# Goal 1: A valid estimate of uncertainty
+
+![](plots/uncertainty_unbiased_causal_effect.png)
+
+
+
+# Goal 2: A method that works with multiple treated units
+
+![](plots/multiple_treated_units.png)
+
+# Goal 2: A method that works with multiple treated units
+
+![](plots/multiple_treated_units_uncertainty.png)
+
+# Work so far
+
+- Bayesian synthetic control for goals 1 & 2
+
+- So far, **goal 1**: 
+
+  - In-depth literature review
+  - Single treated unit Stan programming
+
+# Preliminary simulation results
+
+<br>
+
+- Data generated with a multiple regression linear model unobserved and observed (normal) predictors
+
+- Additive causal effect (+400 at all time points)
+<br>
+<br>
+
+::: {.fragment}
+
+```{r}
+#| cache: true
+#| label: results
+#| eval: true
+#| 
+library(tidyverse)
+table <- 
+  haven::read_dta("table.sav") %>% 
+  mutate(method = c("Maximum a Posteriori", "Posterior mean", "Current implementation")) 
+
+table <- table %>% 
+  mutate(coverage = as.numeric(coverage),
+         across(c("sd", "mse"), ~ round(., 0)),
+         coverage = round(coverage, digits = 2),
+         bias = round(bias, digits = 2)) %>% 
+   mutate(coverage = ifelse(is.na(coverage), "-", coverage)) 
+
+library(gt)
+
+results_table <- gt(table) %>% 
+  tab_header(title = "Simulation results") %>% 
+  fmt_number(columns = c("sd", "mse"), decimals = 0) %>% 
+  fmt_percent(columns = coverage, decimals = 0) %>% 
+  cols_label(.list = list("method" = "Method", "sd" = "Standard Deviation", "bias" = "Bias", "mse" = "MSE", "coverage" = "Coverage")) %>% 
+  tab_options(table.width = pct(80),
+              table.font.size = px(24)) %>% 
+  opt_table_font(font = "Serif") 
+
+results_table
+
+```
+:::
+
+
+# Next steps
+
+- Modelling:
+  - Introduce a penalty
+    - Lower variance
+    - Similar MAP and posterior mean
+  - Sparsity priors
+
+- More simulation conditions, including time-varying coefficients
+
+- Goal 2: Multiple treated units
+
+# End
+<br>
+<br>
+
+- Thanks to my supervisors Oisín Ryan & Erik-Jan van Kesteren
+<br>
+
+- Thanks for listening!
+
+# References
+
+::: {#refs}
+:::
+
