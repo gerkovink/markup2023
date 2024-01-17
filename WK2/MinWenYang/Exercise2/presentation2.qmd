@@ -1,0 +1,126 @@
+---
+title: "MarkUp Language Short Presentation - Exercise2"
+author: 
+    name: Min Wen Yang
+    orcid: 0009-0008-0405-0570
+format: 
+    revealjs:
+        logo: catpaw.png
+        embed-resources: true
+        #css: logo.css
+#css: style.css
+bibliography: "D:/Correcting Selection Bias by Using Machine Learning Tecniques/Documents/Thesis_Report/refs.bib"
+---
+
+## A centered still figure
+![Tutu (My favorite character!)](Tutu_NH.png)
+
+## an interactive table
+```{r, results='asis'}
+# Create a simple interactive table using R and the `DT` package
+library(DT)
+
+# Sample data
+data <- data.frame(
+  Name = c("John Doe", "Jane Doe", "Bob Smith", "Alice Johnson", "Charlie Brown", "David Wilson", "Eva Williams", "Frank Miller", "Grace Davis", "Henry Lee", "Isabel Smith", "Jack Brown", "Kelly Davis", "Leo Johnson", "Mia Wilson"),
+  Age = c(30, 25, 35, 28, 42, 33, 29, 36, 31, 45, 27, 40, 32, 39, 26),
+  City = c("New York", "San Francisco", "Los Angeles", "Chicago", "Houston", "Miami", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Phoenix", "Philadelphia", "San Diego", "Minneapolis")
+)
+
+
+# Render an interactive DataTable
+datatable(data, options = list(pageLength = 5))
+```
+
+## An interactive figure
+```{r}
+# Import libraries
+library(plotly)
+
+# Sample data
+set.seed(123)
+data <- rnorm(500)
+
+# Create a density plot using Plotly
+density_plot <- plot_ly(x = ~data, type = "histogram", histnorm = "probability density", nbinsx = 30)
+
+# Customize the layout
+layout <- list(title = "Density Plot with Plotly",
+               xaxis = list(title = "Values"),
+               yaxis = list(title = "Density"))
+
+# Display the plot
+density_plot %>% layout(layout)
+```
+
+## a two-column slide
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Fang is a wolf that loves chairs!
+
+![](Fang_NH.png)
+:::
+
+::: {.column width="50%"}
+Audie is another wolf that has a dream to be a model!
+
+![](Audie_NH.png)
+:::
+
+::::
+
+## An aligned multi-row equation
+$$\begin{aligned}
+    f(x) &= x^2 + 2x + 1 \\
+         &= (x + 1)^2 \\
+         &= x^2 + 2x + 1
+\end{aligned}$$
+
+## Citation {transition="fade"}
+
+:::{.incremental}
+i. Not every ML methods are fit to estimate $O_i$ (e.g kNN)
+
+ii. The data (area A and B) is imbalanced [@he_learning_2009].
+
+iii. There is a big overlap between units for model construction and units for estimation. 
+
+iv. Non-probability sampling has the feature of high efficiency and low cost.
+
+v. The inclusion mechanism of non-probability sampling is generally unknwon and could be selective [@spiegelhalter_future_2014].
+:::
+
+## Reference List {transition="fade"}
+
+::: {#refs}
+:::
+
+## Displayed-only R-code
+
+```{r, eval=FALSE, echo=TRUE}
+set.seed(123)
+data <- rnorm(100)
+summary(data)
+```
+
+## cached and labeled r-code
+
+```{r}
+#| cache: true
+#| code-line-numbers: true
+#| label: imputation
+# Chunk Label: Generating and Summarizing Data
+set.seed(123)
+data <- rnorm(100)
+summary(data)
+```
+
+## r-code, executed, but not displayed (e.g. a figure generation)
+```{r, echo=FALSE}
+# Example: Generate a plot
+set.seed(123)
+plot_data <- rnorm(100)
+hist(plot_data, main="Histogram of Random Data", col="lightblue", border="black")
+```

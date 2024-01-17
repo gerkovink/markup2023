@@ -1,0 +1,1 @@
+In this exercise, scr is the file of Rcode. The output (.tif figure) is stored in _figures_ folder.
